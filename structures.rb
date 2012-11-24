@@ -5,9 +5,16 @@ class Recipe_Book < Array
     @recipes = Array.new
   end
 
-  def display
+  def list
     recipe_number = 1
     @recipes.each { |recipe| puts "#{recipe_number}: #{recipe.name}" }
+  end
+
+  def find
+    self.list
+    print "Show recipe #: "
+    recipe = gets.chomp.to_i
+    self[recipe].display
   end
 
 end
@@ -19,20 +26,26 @@ class Recipe
     print "Recipe name: "
     _name = gets.chomp.capitalize!
     @name = _name
-    
-    print "Ingredients (return on empty line to end): "
+
+    puts "Ingredients (return on empty line to end)"
     @ingredients = Array.new
+    ingredient_number = 0
     done = false
     until done
+      ingredient_number += 1
+      print "Ingredient #{ingredient_number}: "
       _ingredient = gets.chomp
       done = true if _ingredient == ""
       @ingredients.push _ingredient
     end
 
-    print "Directions (return on empty line to end): "
+    puts "Directions (return on empty line to end)"
     @directions = Array.new
+    direction_number = 0
     done = false
     until done
+      direction_number += 1
+      print "Direction #{direction_number}: "
       _direction = gets.chomp
       done = true if _direction == ""
       @directions.push _direction
@@ -49,7 +62,7 @@ class Recipe
   end
 
   def edit
-    # make changes to existing recipe
+    puts 'make changes to existing recipe'
   end
 
 end
@@ -58,11 +71,11 @@ class Pantry
   attr_accessor :ingredients
 
   def display
-    # display ingredients
+    puts 'display ingredients'
   end
 
   def edit
-    # edit existing ingredients
+    puts 'edit existing ingredients'
   end
 
 end
