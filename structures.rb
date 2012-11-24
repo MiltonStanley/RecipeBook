@@ -23,12 +23,24 @@ class Recipe
 
     puts "Ingredients (return on empty line to end)"
     @ingredients = Array.new
+
     ingredient_number = 1
     done = false
     until done
-      input = gets.chomp
-      done = true if input == ""
+      new_ingredient = Ingredient.new(ingredient_number)
+      ingredient_number += 1
+      done = true if new_ingredient.name.nil? && new_ingredient.quantity.nil?
+      
     end
+
+    direction_number = 1
+    done = false
+    until done
+      new_direction = Direction.new(direction_number)
+      direction_number += 1
+      done = true if new_direction.text == ""
+    end
+
     print "Serving size: "
     @serving_size = gets.chomp
   end
@@ -52,8 +64,10 @@ end
 class Ingredient
   attr_accessor :quantity, :name #:price_list
 
-  def initialize(ingredient_number, done)
-
+  def initialize(ingredient_number)
+    print "Ingredient ##{ingredient_number}: "
+    input = gets.chomp
+    @quantity, @name = input.split("|")
   end
 
   def display
@@ -63,7 +77,12 @@ class Ingredient
 end
 
 class Direction
-  attr_accessor :number, :text, :ingredients
+  attr_accessor :text
+
+  def initialize(direction_number)
+    print "Direction ##{direction_number}: "
+    @text = gets.chomp
+  end
 
   def display
     puts "display direction"
