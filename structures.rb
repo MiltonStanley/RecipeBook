@@ -1,14 +1,20 @@
 class Recipe_Book < Array
 
   def list
-    self.each_index { |index| puts "#{index+1}: #{self[index].name}" }
+    system "clear"
+    self.each_index do |index| 
+      puts "#{index+1}: #{self[index].name}"
+    end
+    puts
   end
 
   def find
+    system "clear"
     self.list
     print "Show recipe #: "
     recipe = gets.chomp.to_i
     self[recipe-1].display
+    puts
   end
 
 end
@@ -18,27 +24,28 @@ class Recipe
 
   def initialize
     print "Recipe name: "
-    _name = gets.chomp.capitalize!
-    @name = _name
-
+    @name = gets.chomp.capitalize
+    
     puts "Ingredients (return on empty line to end)"
     @ingredients = Array.new
-
     ingredient_number = 1
     done = false
     until done
       new_ingredient = Ingredient.new(ingredient_number)
       ingredient_number += 1
       done = true if new_ingredient.name.nil? && new_ingredient.quantity.nil?
-      
+      @ingredients.push new_ingredient unless done
     end
 
+    puts "Directions (return on empty line to end)"
+    @directions = Array.new
     direction_number = 1
     done = false
     until done
       new_direction = Direction.new(direction_number)
       direction_number += 1
       done = true if new_direction.text == ""
+      @directions.push new_direction unless done
     end
 
     print "Serving size: "
@@ -46,13 +53,14 @@ class Recipe
   end
 
   def display
-    puts self.name
-    
-    #  index.to_s is index; "#{index}" is the same
-    
-    @ingredients.each_index { |index| puts "#{index+1}: #{@ingredients[index].name}" }
-    puts "----"
-    @directions.each_index { |index| puts @directions[index].display }
+    system "clear"
+    puts @name.upcase    
+    (1..@name.length).each { |i| print "-" }
+    puts; puts
+    @ingredients.each { |ingredient| puts "#{ingredient.quantity} #{ingredient.name}" }
+    puts
+    @directions.each_index { |index| puts "#{index+1}. #{@directions[index].text}" }
+    puts; puts
   end
 
   def edit
@@ -68,10 +76,6 @@ class Ingredient
     print "Ingredient ##{ingredient_number}: "
     input = gets.chomp
     @quantity, @name = input.split("|")
-  end
-
-  def display
-    puts "#{:quantity} - #{:name}"
   end
 
 end
