@@ -55,12 +55,20 @@ class Recipe
   def display
     system "clear"
     puts @name.upcase    
-    (1..@name.length).each { |i| print "-" }
+    (1..@name.length).each { |i| print "=" }
     puts; puts
+    puts "INGREDIENTS"
+    puts "-----------"
     @ingredients.each { |ingredient| puts "#{ingredient.quantity} #{ingredient.name}" }
-    puts
+    puts; puts
+    puts "DIRECTIONS"
+    puts "----------"
     @directions.each_index { |index| puts "#{index+1}. #{@directions[index].text}" }
     puts; puts
+    puts "Serves #{serving_size}"
+    puts; puts
+    print "Enter to continue..."
+    _ = gets
   end
 
   def edit
