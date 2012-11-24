@@ -1,44 +1,7 @@
-class Recipe
-  attr_accessor :name, :ingredients, :directions, :serving_size
-
-  def print
-    # cycle through attributes, printing each
-  end
-
-  def edit
-    # make changes
-  end
-
-end
-
-class Pantry
-  attr_accessor :ingredients
-
-  def print
-    # print ingredients
-  end
-
-end
-
-class Ingredient
-  attr_accessor :quantity, :name, :price_list
-
-  def print
-    #nicely formatted printing
-  end
-
-end
-
-class Direction
-  attr_accessor :number, :text, :ingredients
-
-  def print
-    # nicely formatted printing
-  end
-
-end
+require './structures'
 
 stay = true
+book = Recipe_Book.new
 
 while stay
   puts "1) Exit 2) New Recipe 3) Show Recipes 4) Edit Pantry"
@@ -46,8 +9,12 @@ while stay
   command = gets.chomp
   case command
     when "1" then stay = false
-    when "2" then puts "new recipe"
-    when "3" then puts "show recipes"
+    when "2" then new_recipe = Recipe.new( "tacos", 
+                                    ["meat","taco shell","salsa"], 
+                                    ["cook meat","put in shells","top with salsa"],
+                                    5)
+        book.recipes.push new_recipe
+    when "3" then book.print
     when "4" then puts "edit pantry"
     else puts "Invalid command!"
   end
