@@ -1,5 +1,7 @@
 # THINGS TO ADD
 #
+# Add try-catch block for exception handling on YAML loading
+#
 # Saving recipes
 # pantry feature
 #
